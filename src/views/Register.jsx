@@ -1,4 +1,4 @@
-import React from 'react'
+import { Link } from 'react-router-dom'
 
 export default function Register() {
   return (
@@ -79,6 +79,11 @@ export default function Register() {
                 
           </form>
         </div>
+        <nav className="mt-5">
+          <Link to="/auth/login">
+            ¿Ya tienes cuenta? Inicias Sesión
+          </Link>
+        </nav>
     </>
      
   )
