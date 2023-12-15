@@ -32,5 +32,5 @@ const categories = [
 ]
 
 export {
-    categorias 
+     categories 
 }
