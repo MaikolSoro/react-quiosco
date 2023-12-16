@@ -1,10 +1,14 @@
+import useQuisco from "../hooks/useQuiosco"
 
-export default function Category({ category}) {
 
+ const Category = ({ category }) => {
+
+    const { handleClickCategory, categoryCurrent } = useQuisco();
     const {icono, id, nombre } = category
 
+   const showCategoryCurrent = () => categoryCurrent.id === id ? 'bg-amber-400' : 'bg-white'
   return (
-    <div className="flex items-center gap-4 border w-full p-3 hover:bg-amber-400 cursor-pointer">
+    <div className={`${showCategoryCurrent()} flex items-center gap-4 border w-full p-3 hover:bg-amber-400 cursor-pointer`}>
 
         <img 
             alt="Imagen Icono"
@@ -12,7 +16,14 @@ export default function Category({ category}) {
             className="w-12"
         />
 
-        <p className="text-lg font-bold cursor-pointer truncate">{nombre}</p>
+        <button 
+          type="button"
+          className="text-lg font-bold cursor-pointer truncate"
+          onClick={() => handleClickCategory(id)}
+        >
+            {nombre}
+        </button>
     </div>
   )
 }
+export default Category;
