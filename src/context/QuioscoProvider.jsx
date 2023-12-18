@@ -25,7 +25,13 @@ const QuioscoProvider = ({children}) => {
     }
 
     const handleAddOrder = ({category_id, imagen, ...product}) => {
-        setOrder([...order, product])
+
+        if(order.some( orderState => orderState.id === product.id )){
+            const orderUpdated = order.map( orderState => orderState.id === product.id ? product : orderState)
+            setOrder(orderUpdated)
+        } else {
+            setOrder([...order, product])
+        }
     }
 
     return (

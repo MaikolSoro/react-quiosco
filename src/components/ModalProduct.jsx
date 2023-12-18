@@ -12,9 +12,8 @@ export default function ModalProduct() {
     const [edition, setEdition] = useState(false);
 
     useEffect(() => {
-        if(pedido.some( orderState => orderState.id === product.id )){
+        if(order.some( orderState => orderState.id === product.id )){
             const productEdition = order.filter( orderState => orderState.id === product.id )[0]
-
             setQuantity(productEdition.quantity)
             setEdition(true)
         } 
@@ -89,7 +88,6 @@ export default function ModalProduct() {
                     edition ? 'Guardar Cambios' : 'Añadir al Pedido'
                 }
 
-            Añadir al Pedido
             </button>
         </div>
     </div>
