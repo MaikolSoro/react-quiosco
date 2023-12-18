@@ -5,22 +5,22 @@ export default function Product({ product }) {
 
 
     const { handleClickModal, handleSetProduct } = useQuisco()
-    const { nombre, imagen, precio } = product
+    const { name, image, price } = product
 
   
   return (
         <div className="border p-3 shadow bg-white">
             <img 
-                alt={`imagen ${nombre}`}
+                alt={`imagen ${name}`}
                 className="w-full"
-                src={`/img/${imagen}.jpg`}
+                src={`/img/${image}.jpg`}
             />
 
             <div className="p-5">
                 <h3 className="text-2xl font-bold">
-                    {nombre}
+                    {name}
                 </h3>
-                <p className="mt-5 font-black text-4xl text-amber-500">{formatMoney(precio)}</p>
+                <p className="mt-5 font-black text-4xl text-amber-500">{formatMoney(price)}</p>
 
                 <button
                     type="button"
