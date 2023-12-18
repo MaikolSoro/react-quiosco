@@ -1,14 +1,23 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import useQuisco from "../hooks/useQuiosco"
 import { formatMoney } from '../helpers'
 
 
 export default function ModalProduct() {
 
-    const { product, handleClickModal } = useQuisco();
+    const { product, handleClickModal, handleAddOrder, order } = useQuisco();
 
-    const [quatity, setQuatity] = useState(1);
+    const [quantity, setQuantity] = useState(1);
 
+    const [edition, setEdition] = useState(false);
+
+    useEffect(() => {
+        if(order.some( orderState => orderState.id === product.id )){
+            const productEdition = order.filter( orderState => orderState.id === product.id )[0]
+            setQuantity(productEdition.quantity)
+            setEdition(true)
+        } 
+    }, [order])
   return (
     <div className="md:flex items-center gap-10">
         <div className="md:w-1/3">
@@ -40,8 +49,8 @@ export default function ModalProduct() {
                 <button
                     type='button'
                     onClick={() => {
-                         if (quatity <= 1) return
-                         setQuatity(quatity - 1)
+                         if (quantity <= 1) return
+                         setQuantity(quantity - 1)
                     }}
                 >
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -50,13 +59,13 @@ export default function ModalProduct() {
 
                 </button>
 
-                <p className='text-3xl'>{quatity}</p>
+                <p className='text-3xl'>{quantity}</p>
 
                 <button
                     type='button'
                     onClick={() => {
-                        if (quatity >= 5) return
-                        setQuatity(quatity + 1)
+                        if (quantity >= 5) return
+                        setQuantity(quantity + 1)
                     }}
                 >
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -68,9 +77,17 @@ export default function ModalProduct() {
             <button
                 type="button"
                 className="bg-indigo-600 hover:bg-indigo-800 px-5 py-2 mt-5 text-white font-bold uppercase rounded"
-            >
+                onClick={ () => {
 
-            Añadir al Pedido
+                        handleAddOrder({...product, quantity}) 
+                        handleClickModal()
+                    }
+                } 
+            >
+                {
+                    edition ? 'Guardar Cambios' : 'Añadir al Pedido'
+                }
+
             </button>
         </div>
     </div>
