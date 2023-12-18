@@ -25,7 +25,7 @@ const QuioscoProvider = ({children}) => {
     }
 
     const handleAddOrder = ({category_id, imagen, ...product}) => {
-        setPedido([...pedido, product])
+        setOrder([...order, product])
     }
 
     return (

@@ -7,7 +7,7 @@ export default function ModalProduct() {
 
     const { product, handleClickModal, handleAddOrder } = useQuisco();
 
-    const [quatity, setQuatity] = useState(1);
+    const [quantity, setQuantity] = useState(1);
 
   return (
     <div className="md:flex items-center gap-10">
@@ -40,8 +40,8 @@ export default function ModalProduct() {
                 <button
                     type='button'
                     onClick={() => {
-                         if (quatity <= 1) return
-                         setQuatity(quatity - 1)
+                         if (quantity <= 1) return
+                         setQuantity(quantity - 1)
                     }}
                 >
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -50,13 +50,13 @@ export default function ModalProduct() {
 
                 </button>
 
-                <p className='text-3xl'>{quatity}</p>
+                <p className='text-3xl'>{quantity}</p>
 
                 <button
                     type='button'
                     onClick={() => {
-                        if (quatity >= 5) return
-                        setQuatity(quatity + 1)
+                        if (quantity >= 5) return
+                        setQuantity(quantity + 1)
                     }}
                 >
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -68,7 +68,12 @@ export default function ModalProduct() {
             <button
                 type="button"
                 className="bg-indigo-600 hover:bg-indigo-800 px-5 py-2 mt-5 text-white font-bold uppercase rounded"
-                onClick={ () => handleAddOrder({...product, quatity}) }
+                onClick={ () => {
+
+                        handleAddOrder({...product, quantity}) 
+                        handleClickModal()
+                    }
+                } 
             >
 
             Añadir al Pedido

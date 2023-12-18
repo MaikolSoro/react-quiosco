@@ -1,5 +1,5 @@
-import React from 'react'
 import useQuiosco from '../hooks/useQuiosco';
+import ProductSummary from './ProductSummary';
 
 
 export default function Resumen() {
@@ -20,7 +20,12 @@ export default function Resumen() {
             No hay elementos en tu pedido aún
           </p>
         ): (
-          <p>Si hay algo</p>
+          order.map(product => (
+            <ProductSummary 
+              key={product.id}
+              product={product}
+            />
+          ))
         )}
       </div>
 
