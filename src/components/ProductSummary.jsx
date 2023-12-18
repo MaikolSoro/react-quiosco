@@ -1,8 +1,9 @@
-
+import useQuisco from "../hooks/useQuiosco";
 import { formatMoney } from "../helpers";
 
 export default function ProductSummary({ product }) {
 
+  const { handleEditQuantity, handleProductDeleteOrder } = useQuisco();
   const { id, nombre, precio, quantity } = product
   return (
     <div className="shadow space-y-1 p-4 bg-white">
@@ -21,6 +22,7 @@ export default function ProductSummary({ product }) {
         <button
           type="button"
           className="bg-sky-700 p-2 text-white rounded-md font-bold uppercase shadow-md text-center"
+          onClick={() => handleEditQuantity(id) }
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -34,6 +36,7 @@ export default function ProductSummary({ product }) {
         <button
           type="button"
           className="bg-red-700 p-2 text-white rounded-md font-bold uppercase shadow-md text-center"
+          onClick={() => handleProductDeleteOrder(id) }
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
