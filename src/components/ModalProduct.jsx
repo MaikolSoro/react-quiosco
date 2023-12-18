@@ -1,14 +1,24 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import useQuisco from "../hooks/useQuiosco"
 import { formatMoney } from '../helpers'
 
 
 export default function ModalProduct() {
 
-    const { product, handleClickModal, handleAddOrder } = useQuisco();
+    const { product, handleClickModal, handleAddOrder, order } = useQuisco();
 
     const [quantity, setQuantity] = useState(1);
 
+    const [edition, setEdition] = useState(false);
+
+    useEffect(() => {
+        if(pedido.some( orderState => orderState.id === product.id )){
+            const productEdition = order.filter( orderState => orderState.id === product.id )[0]
+
+            setQuantity(productEdition.quantity)
+            setEdition(true)
+        } 
+    }, [order])
   return (
     <div className="md:flex items-center gap-10">
         <div className="md:w-1/3">
@@ -75,6 +85,9 @@ export default function ModalProduct() {
                     }
                 } 
             >
+                {
+                    edition ? 'Guardar Cambios' : 'Añadir al Pedido'
+                }
 
             Añadir al Pedido
             </button>
