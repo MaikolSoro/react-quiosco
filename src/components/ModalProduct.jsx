@@ -5,7 +5,7 @@ import { formatMoney } from '../helpers'
 
 export default function ModalProduct() {
 
-    const { product, handleClickModal } = useQuisco();
+    const { product, handleClickModal, handleAddOrder } = useQuisco();
 
     const [quatity, setQuatity] = useState(1);
 
@@ -68,6 +68,7 @@ export default function ModalProduct() {
             <button
                 type="button"
                 className="bg-indigo-600 hover:bg-indigo-800 px-5 py-2 mt-5 text-white font-bold uppercase rounded"
+                onClick={ () => handleAddOrder({...product, quatity}) }
             >
 
             Añadir al Pedido
