@@ -4,17 +4,17 @@ import { formatMoney } from "../helpers";
 export default function ProductSummary({ product }) {
 
   const { handleEditQuantity, handleProductDeleteOrder } = useQuisco();
-  const { id, nombre, precio, quantity } = product
+  const { id, name, price, quantity } = product
   return (
     <div className="shadow space-y-1 p-4 bg-white">
       <div className="space-y-2">
-        <p className="text-xl font-bold">{nombre}</p>
+        <p className="text-xl font-bold">{name}</p>
         <p className="text-lg font-bold ">Cantidad: {quantity}</p>
         <p className="text-lg font-bold text-amber-500">
-          Precio: { formatMoney(precio) }
+          Precio: { formatMoney(price) }
         </p>
         <p className="text-lg text-gray-700">
-          Subtotal: { formatMoney(precio * quantity)}
+          Subtotal: { formatMoney(price * quantity)}
         </p>
       </div>
 
