@@ -1,5 +1,7 @@
+import { createRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Alert from '../components/Alert';
+import { useAuth } from '../hooks/useAuth';
 
 
 export default function Login() {
@@ -9,6 +11,11 @@ export default function Login() {
 
     const [errores, setErrores] = useState([])
 
+    const { login } = useAuth({
+      middleware: 'guest',
+      url: '/'
+    });
+
     const handleSubmit = async e => {
       e.preventDefault();
 
@@ -16,13 +23,9 @@ export default function Login() {
         email: emailRef.current.value,
         password: passwordRef.current.value,
       }
-        try {
-          const { data } =  await clientAxios.post('/api/login', dataValidate)
-          console.log(data.token)
 
-        } catch (error){
-          setErrores(Object.values(error.response.data.errors))
-        }
+      login(dataValidate, setErrores)
+       
     }
   return (
     <>
@@ -35,7 +38,7 @@ export default function Login() {
             noValidate
           >
              {errores ?  errores.map((error,i) => <Alert key={i}>{ error }</Alert>): null}
-             
+
             <div className="mb-4">
               <label
                   className="text-slate-800"
