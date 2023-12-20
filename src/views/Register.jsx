@@ -21,14 +21,14 @@ export default function Register() {
       password: passwordRef.current.value,
       password_confirmation: passwordConfirmationRef.current.value
 
-    }
-      try {
-        const { data } =  await clientAxios.post('/api/register', dataValidate)
-        console.log(data.token)
+    };
+    try {
+      const { data } =  await clientAxios.post('/api/register', dataValidate)
+      console.log(data.token)
 
-      } catch (error){
-         setErrores(Object.values(error.response.data.errors))
-      }
+    } catch (error){
+        setErrores(Object.values(error.response.data.errors))
+    }
   }
   return (
     <>
@@ -63,7 +63,6 @@ export default function Register() {
               <label
                   className="text-slate-800"
                   htmlFor="email"
-                  ref={ emailRef }
               >
                 Email:
               </label>
@@ -73,6 +72,7 @@ export default function Register() {
                   className="mt-2 w-full p-3 bg-gray-50"
                   name="email"
                   placeholder="Tu Email"
+                  ref={emailRef}
               />
             </div>
 
