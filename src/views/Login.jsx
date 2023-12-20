@@ -1,14 +1,41 @@
 import { Link } from 'react-router-dom'
+import Alert from '../components/Alert';
+
 
 export default function Login() {
+
+    const emailRef = createRef();
+    const passwordRef = createRef();
+
+    const [errores, setErrores] = useState([])
+
+    const handleSubmit = async e => {
+      e.preventDefault();
+
+      const dataValidate = {
+        email: emailRef.current.value,
+        password: passwordRef.current.value,
+      }
+        try {
+          const { data } =  await clientAxios.post('/api/login', dataValidate)
+          console.log(data.token)
+
+        } catch (error){
+          setErrores(Object.values(error.response.data.errors))
+        }
+    }
   return (
     <>
         <h1 className="text-4xl font-black"> Iniciar Sesión </h1>
         <p>Para Crear un pedido debes iniciar sesión</p>
 
         <div className="bg-white shadow-md rounded-md mt-10 px-5 py-10">
-          <form>
-
+          <form
+            onSubmit={ handleSubmit }
+            noValidate
+          >
+             {errores ?  errores.map((error,i) => <Alert key={i}>{ error }</Alert>): null}
+             
             <div className="mb-4">
               <label
                   className="text-slate-800"
@@ -22,6 +49,7 @@ export default function Login() {
                   className="mt-2 w-full p-3 bg-gray-50"
                   name="email"
                   placeholder="Tu Email"
+                  ref={emailRef}
               />
             </div>
 
@@ -38,6 +66,7 @@ export default function Login() {
                   className="mt-2 w-full p-3 bg-gray-50"
                   name="password"
                   placeholder="Tu Password"
+                  ref={ passwordRef }
               />
             </div>
 

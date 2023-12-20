@@ -15,7 +15,7 @@ export default function Register() {
   const handleSubmit = async e => {
     e.preventDefault();
 
-    const data = {
+    const dataValidate = {
       name: nameRef.current.value,
       email: emailRef.current.value,
       password: passwordRef.current.value,
@@ -23,7 +23,7 @@ export default function Register() {
 
     }
       try {
-        const { data } =  await clientAxios.post('/api/register', data)
+        const { data } =  await clientAxios.post('/api/register', dataValidate)
         console.log(data.token)
 
       } catch (error){
