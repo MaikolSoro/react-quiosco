@@ -5,6 +5,7 @@ export default function ProductSummary({ product }) {
 
   const { handleEditQuantity, handleProductDeleteOrder } = useQuisco();
   const { id, name, price, quantity } = product
+  
   return (
     <div className="shadow space-y-1 p-4 bg-white">
       <div className="space-y-2">
