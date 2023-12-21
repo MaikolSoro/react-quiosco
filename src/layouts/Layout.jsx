@@ -9,6 +9,8 @@ import useQuisco from '../hooks/useQuiosco'
 
 import ModalProduct from '../components/ModalProduct'
 
+import { useAuth } from '../hooks/useAuth'
+
 const customStyles = {
   content: {
     top: "50%",
@@ -23,6 +25,7 @@ const customStyles = {
 Modal.setAppElement('#root')
 export default function Layout() {
 
+  const { user, error } = useAuth({middleware: 'auth'})
   const { modal } = useQuisco();
   
   return (
