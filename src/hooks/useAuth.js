@@ -13,7 +13,7 @@ export const useAuth = ({ middleware, url}) => {
     const { data: user, error, mutate } = useSWR('/api/user', () => 
         clientAxios('/api/user', {
             headers: {
-                Authorization: `Bearer ${token}`
+                Authorization: `Bearer ${token}`,
             }
         })
         .then(res = res.data)
@@ -35,8 +35,16 @@ export const useAuth = ({ middleware, url}) => {
         }
     }
 
-    const register = () => {
-
+    const register = async (dataValidate, setErrores) => {
+        try {
+            const { data } =  await clientAxios.post('/api/register', dataValidate)
+            localStorage.setItem('AUTH_TOKEN', data.token);
+            setErrores([])
+            await mutate();
+      
+          } catch (error){
+              setErrores(Object.values(error.response.data.errors));
+        }
     }
 
     const logout = async () => {
@@ -52,9 +60,6 @@ export const useAuth = ({ middleware, url}) => {
             throw Error(error?.response?.data?.errors)
         }
     }
-
-    console.log(user)
-    console.log(error)
 
     useEffect(() => {
 
