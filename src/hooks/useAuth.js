@@ -39,8 +39,18 @@ export const useAuth = ({ middleware, url}) => {
 
     }
 
-    const logout = () => {
-
+    const logout = async () => {
+        try {
+            await clientAxios.post('/api/logout', null, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            localStorage.removeItem('AUTH_TOKEN')
+            await mutate(undefined)
+        } catch (error) {
+            throw Error(error?.response?.data?.errors)
+        }
     }
 
     console.log(user)
