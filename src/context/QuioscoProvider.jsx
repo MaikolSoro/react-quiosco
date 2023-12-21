@@ -1,6 +1,5 @@
 import { createContext, useState, useEffect } from 'react'
 import { toast } from 'react-toastify';
-import { categories as categoriesDB } from '../data/categories'
 import clientAxios from '../config/axios'
 
 
@@ -17,7 +16,7 @@ const QuioscoProvider = ({children}) => {
     const [total, setTotal] = useState(0)
 
     useEffect(() => {
-        const newTotal = order.reduce((total, product) => (product.precio * product.quantity) + total, 0)
+        const newTotal = order.reduce((total, product) => (product.price * product.quantity) + total, 0)
         setTotal(newTotal)
     }, [order])
 
