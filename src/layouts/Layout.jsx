@@ -5,9 +5,11 @@ import "react-toastify/dist/ReactToastify.css"
 import Sidebar from '../components/Sidebar'
 import Summary from '../components/Summary'
 
-import useQuisco from '../hooks/useQuiosco'
+import useQuiosco from '../hooks/useQuiosco'
 
 import ModalProduct from '../components/ModalProduct'
+
+import { useAuth } from '../hooks/useAuth'
 
 const customStyles = {
   content: {
@@ -23,7 +25,8 @@ const customStyles = {
 Modal.setAppElement('#root')
 export default function Layout() {
 
-  const { modal } = useQuisco();
+  const { user, error } = useAuth({middleware: 'auth'})
+  const { modal } = useQuiosco();
   
   return (
     <>

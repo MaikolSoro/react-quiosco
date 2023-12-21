@@ -1,11 +1,11 @@
 import useSWR from 'swr'
 import Product from '../components/Product'
-import useQuisco from '../hooks/useQuiosco'
+import useQuiosco from '../hooks/useQuiosco'
 import clientAxios from '../config/axios'
 
 export default function Home() {
 
-  const { categoryCurrent } = useQuisco()
+  const { categoryCurrent } = useQuiosco()
   
   // Query SWR
   const fetcher = () => clientAxios('/api/products').then(data => data.data)

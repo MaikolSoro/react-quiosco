@@ -1,10 +1,13 @@
-import useQuisco from "../hooks/useQuiosco"
+import useQuiosco from "../hooks/useQuiosco"
 import Category from "./Category"
-
+import { useAuth } from "../hooks/useAuth"
 
 export default function Sidebar() {
 
-  const { categories } = useQuisco()
+  const { categories } = useQuiosco();
+  const { logout, user } = useAuth({middleware: 'auth'});
+
+
   return (
     <aside className="md:w-72">
         <div className="p-4">
@@ -14,6 +17,8 @@ export default function Sidebar() {
                alt="Imagen Logo"
             />
         </div>
+
+        <p className="my-10 text-xl text-center">Hola: {user?.name}</p>
 
         <div className="mt-10">
             {categories.map( category => (
@@ -28,6 +33,7 @@ export default function Sidebar() {
             <button
                 type="button"
                 className="text-center bg-red-500 w-full p-3 font-bold text-white truncate"
+                onClick={logout}
             >
                 Cancelar Orden
             </button>
