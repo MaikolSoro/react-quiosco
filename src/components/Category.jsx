@@ -4,7 +4,7 @@ import useQuisco from "../hooks/useQuiosco"
  const Category = ({ category }) => {
 
     const { handleClickCategory, categoryCurrent } = useQuisco();
-    const {icono, id, nombre } = category
+    const { icono, id, nombre } = category
 
    const showCategoryCurrent = () => categoryCurrent.id === id ? 'bg-amber-400' : 'bg-white'
   return (

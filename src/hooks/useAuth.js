@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import clientAxios from "../config/axios";
 
 
-export const useAuth = ({ middleware, url}) => {
+ export const useAuth = ({ middleware, url}) => {
 
     const token = localStorage.getItem('AUTH_TOKEN')
 
@@ -16,11 +16,11 @@ export const useAuth = ({ middleware, url}) => {
                 Authorization: `Bearer ${token}`,
             }
         })
-        .then(res = res.data)
+        .then(res => res.data)
         .catch(error => {
             throw Error(error?.response?.data?.errors)
         }) 
-    )
+    );
     
     const login = async (dataValidate, setErrores) => {
 
@@ -29,7 +29,7 @@ export const useAuth = ({ middleware, url}) => {
             localStorage.setItem('AUTH_TOKEN', data.token);
             setErrores([])
             await mutate()
-  
+
           } catch (error){
             setErrores(Object.values(error.response.data.errors))
         }
@@ -37,13 +37,12 @@ export const useAuth = ({ middleware, url}) => {
 
     const register = async (dataValidate, setErrores) => {
         try {
-            const { data } =  await clientAxios.post('/api/register', dataValidate)
+            const { data } = await clientAxios.post('/api/register', dataValidate);
             localStorage.setItem('AUTH_TOKEN', data.token);
-            setErrores([])
+            setErrores([]);
             await mutate();
-      
-          } catch (error){
-              setErrores(Object.values(error.response.data.errors));
+        } catch (error) {
+            setErrores(Object.values(error.response?.data?.errors || {}));
         }
     }
 
