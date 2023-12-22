@@ -19,9 +19,14 @@ const QuioscoProvider = ({children}) => {
     }, [order])
 
     const getCategories = async () => {
+        const token = localStorage.getItem('AUTH_TOKEN')
         try {
 
-            const { data } = await clientAxios('/api/categories')
+            const { data } = await clientAxios('/api/categories', {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                }
+            })
             setCategories(data.data)
             setCategoryCurrent(data.data[0])
         } catch(error){

@@ -8,10 +8,16 @@ export default function Home() {
   const { categoryCurrent } = useQuiosco()
   
   // Query SWR
-  const fetcher = () => clientAxios('/api/products').then(data => data.data)
+  const token = localStorage.getItem('AUTH_TOKEN');
+  const fetcher = () => clientAxios('/api/products', {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  }).then(data => data.data)
+
   const { data, error, isLoading } = useSWR('/api/products', fetcher, {
     refreshInterval: 1000
-  })
+  });
   
   if (isLoading) return 'Cargando..'; 
   
@@ -28,6 +34,7 @@ export default function Home() {
           <Product 
             key={product.imagen}
             product={product}
+            buttonAdd={true}
           />
         ))}
       </div>
