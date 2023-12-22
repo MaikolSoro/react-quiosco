@@ -1,6 +1,7 @@
-import useSWR from "swr"
-import clientAxios from "../config/axios"
-import { formatMoney } from "../helpers"
+import useSWR from 'swr';
+import clientAxios from '../config/axios';
+import useQuiosco from '../hooks/useQuiosco';
+import { formatMoney } from '../helpers';
 
 export default function Orders () {
     const token = localStorage.getItem('AUTH_TOKEN')
@@ -11,6 +12,7 @@ export default function Orders () {
     })
     const { data, error, isLoading  } = useSWR('/api/orders', fetcher, { refreshInterval: 1000 })
 
+    const { handleClickfillOrder } = useQuiosco()
     if(isLoading) return 'Cargando...'
 
 
@@ -57,6 +59,7 @@ export default function Orders () {
                     <button 
                         type="button"
                         className='bg-indigo-600 hover:bg-indigo-800 px-5 py-2 rounded uppercase font-bold text-white text-center w-full cursor-pointer'
+                        onClick={() => handleClickfillOrder(order.id)}
                     >Completar</button>
                 </div>
             ))}
