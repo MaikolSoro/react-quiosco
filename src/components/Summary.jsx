@@ -1,13 +1,20 @@
 import { formatMoney } from '../helpers';
 import useQuiosco from '../hooks/useQuiosco';
 import ProductSummary from './ProductSummary';
-
+import { useAuth } from '../hooks/useAuth';
 
 export default function Resumen() {
-  const { order, total } = useQuiosco();
+  const { order, total, handleSubmitNewOrder } = useQuiosco();
+
+  const { logout } = useAuth({});
 
   const checkOrder = () => order.length === 0;
 
+  const handleSubmit = e => {
+     e.preventDefault();
+
+     handleSubmitNewOrder(logout);
+  }
   return (
     <aside className="w-72 h-screen overflow-y-scroll p-5">
       <h1 className="text-4xl font-black">
@@ -36,7 +43,11 @@ export default function Resumen() {
         Total: {''}
         {formatMoney(total)}
       </p>
-      <form className="w-full">
+      <form 
+        className="w-full"
+        onSubmit={ handleSubmit }
+      
+      >
         <div className="mt-5">
           <input 
              type="submit"
