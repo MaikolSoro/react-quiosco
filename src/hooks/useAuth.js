@@ -66,6 +66,14 @@ import clientAxios from "../config/axios";
             navigate(url)
         }
 
+        if(middleware === 'guest' && user && user.admin){
+            navigate('/admin');
+        }
+
+        if (middleware === 'admin' && user && !user.admin) {
+            navigate('/')
+        }
+
         if (middleware === 'auth' && error) {
             navigate('/auth/login')
         }
