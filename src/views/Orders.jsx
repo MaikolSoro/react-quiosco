@@ -1,6 +1,6 @@
 import useSWR from "swr"
-
 import clientAxios from "../config/axios"
+import { formatMoney } from "../helpers"
 
 export default function Orders () {
     const token = localStorage.getItem('AUTH_TOKEN')
@@ -9,11 +9,10 @@ export default function Orders () {
             Authorization: `Bearer ${token}`
         }
     })
-    const { data, error, isLoading  } = useSWR('/api/orders', fetcher)
+    const { data, error, isLoading  } = useSWR('/api/orders', fetcher, { refreshInterval: 1000 })
 
     if(isLoading) return 'Cargando...'
 
-    console.log(data.data.data)
 
   return (
     <div>
@@ -22,7 +21,7 @@ export default function Orders () {
            Administra las ordenes desde aquí.
         </p>
 
-        <div>
+        <div className='grid grid-cols-2 gap-5'>
             {data.data.data.map(order => (
                 <div key={order.id} className="p-5 bg-white shadow space-y-2 border-b">
 
@@ -44,6 +43,21 @@ export default function Orders () {
 
                         </div>
                     ))}
+
+                    <p className='text-lg font-bold text-slate-600'>
+                        Client: {''}
+                        <span className='font-normal'>{order.user.name}</span>
+                    </p>
+
+                    <p className='text-lg font-bold text-amber-500'>
+                        Total a Pagar: {''}
+                        <span className='font-normal text-slate-600'>{ formatMoney(order.total)}</span>
+                    </p>
+
+                    <button 
+                        type="button"
+                        className='bg-indigo-600 hover:bg-indigo-800 px-5 py-2 rounded uppercase font-bold text-white text-center w-full cursor-pointer'
+                    >Completar</button>
                 </div>
             ))}
         </div>
