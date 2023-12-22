@@ -2,8 +2,6 @@ import { createContext, useState, useEffect } from 'react'
 import { toast } from 'react-toastify';
 import clientAxios from '../config/axios'
 
-
-
 const QuioscoContext = createContext();
 
 const QuioscoProvider = ({children}) => {
@@ -72,6 +70,40 @@ const QuioscoProvider = ({children}) => {
         toast.success('Eliminado del Pedido')
     }
 
+    const handleSubmitNewOrder = async (logout) => {
+        const token = localStorage.getItem('AUTH_TOKEN')
+        try {
+
+             const { data } = await clientAxios.post('/api/orders', {
+                total,
+                products: order.map(product => {
+                    return {
+                        id: product.id,
+                        quantity: product.quantity
+                    }
+                })
+
+            },{
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                }
+            })
+            toast.success(data.message);
+            setTimeout(() => {
+                setOrder([])
+            }, 1000);
+
+            // Close the sesion user
+
+            setTimeout(() => {
+                localStorage.removeItem('AUTH_TOKEN');
+                logout()
+            }, 3000);
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
     return (
         <QuioscoContext.Provider
            value={{
@@ -86,7 +118,8 @@ const QuioscoProvider = ({children}) => {
             handleAddOrder,
             handleEditQuantity,
             handleProductDeleteOrder,
-            total
+            total,
+            handleSubmitNewOrder
 
            }}
         >{children}
