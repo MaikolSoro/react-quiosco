@@ -4,7 +4,7 @@ import useQuisco from "../hooks/useQuiosco"
 export default function Product({ product, buttonAdd = false, buttonAvailable = false }) {
 
 
-    const { handleClickModal, handleSetProduct } = useQuisco()
+    const { handleClickModal, handleSetProduct, handleClickProductOutStock } = useQuisco();
     const { name, image, price } = product
 
   
@@ -37,7 +37,7 @@ export default function Product({ product, buttonAdd = false, buttonAvailable = 
                  <button
                     type="button"
                     className="bg-indigo-600 hover:bg-indigo-800 text-white w-full mt-5 p-3 uppercase font-bold"
-                    onClick={() => {}}
+                    onClick={() => handleClickProductOutStock(product.id)}
                 >
                     Producto Agotado
                 </button>
